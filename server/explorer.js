@@ -61,12 +61,14 @@ module.exports = class Explorer {
 
   start() {
     console.log("stating exploring..");
-    let { server } = this.props;
+    let { server, blockFolder } = this.props;
+    let lastHashPath = path.join(blockFolder, "lastHashKey.json");
     rest.get(server + "/api/status?q=getLastBlockHash").on(
       "complete",
       function(data) {
         console.log(data);
         if (data.lastblockhash) {
+          fs.writeFileSync(lastHashPath, JSON.stringify(data));
           this.getAllBlocks(data.lastblockhash);
         }
       }.bind(this)
