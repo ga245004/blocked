@@ -39,7 +39,7 @@ module.exports = class Explorer {
         fs.writeFileSync(hashPath, JSON.stringify(data));
         callback(data);
       } else {
-        throw new Error("not able to fetch block hash " + hash);
+        console.log("not able to fetch block hash " + hash);
       }
     });
   }
